@@ -5,13 +5,15 @@ import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class GraphicalComponents {
+public class GraphicalComponents{
 
 	private JFrame frame;
 	private JTable table;
 	private DefaultTableModel tableModel;
 	private DefaultTableCellRenderer cellRenderer;
+	private JButton button;
 	private JScrollPane scrollPane;
+	private JCheckBox checkBox;
 	private ImageIcon img;
 	
 	public GraphicalComponents newJFrame(int width, int height, String caption, String url, boolean resizable, Component components) {
@@ -28,9 +30,9 @@ public class GraphicalComponents {
 		return this;
 	}
 	
-	public JTable newTable(boolean isCellEditable, int tableColumn, int tableRow) {
+	public JTable newTable() {
 		
-		table = new JTable(newTableModel(isCellEditable, tableColumn, tableRow));
+		table = new JTable();
 		table.getTableHeader().setReorderingAllowed(false);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		
@@ -40,12 +42,32 @@ public class GraphicalComponents {
 	public JScrollPane newScrollPane(int x, int y, int width, int height) {
 		
 		scrollPane = new JScrollPane();
+		scrollPane.setFocusable(false);
 		scrollPane.setBounds(x, y, width, height);
 		
 		return scrollPane;
 		
 	}
 	
+	public JCheckBox newCheckBox(int x, int y, int width, int height, String caption) {
+		
+		checkBox = new JCheckBox(caption);
+		checkBox.setFocusable(false);
+		checkBox.setBounds(x, y, width, height);
+		
+		return checkBox;
+	}
+	
+	public JButton newJButton(int x, int y, int width, int height, String caption) {
+		
+		button = new JButton(caption);
+		button.setBounds(x, y, width, height);
+		button.setFocusable(false);
+		
+		return button;
+	}
+	
+	@SuppressWarnings("serial")
 	public DefaultTableModel newTableModel(boolean isCellEditable, int tableColumn, int tableRow) {
 		
 		tableModel = new DefaultTableModel(new String[] {}, 0) {
@@ -62,6 +84,22 @@ public class GraphicalComponents {
 		};
 		
 		return tableModel;
+	}
+	
+	public TableColumn columnModel(String columnName) {
+		
+		for(int i = 1; i < table.getColumnCount(); i++) {
+			
+			if(tableModel.getColumnName(i).equals(columnName)) {
+				
+				return table.getColumnModel().getColumn(i);
+				
+			}
+			
+		}
+		
+		return null;
+		
 	}
 	
 	public DefaultTableCellRenderer newCellRenderer(int alignment) {
@@ -115,6 +153,22 @@ public class GraphicalComponents {
 
 	public void setScrollPane(JScrollPane scrollPane) {
 		this.scrollPane = scrollPane;
+	}
+
+	public JCheckBox getCheckBox() {
+		return checkBox;
+	}
+
+	public void setCheckBox(JCheckBox checkBox) {
+		this.checkBox = checkBox;
+	}
+
+	public JButton getButton() {
+		return button;
+	}
+
+	public void setButton(JButton button) {
+		this.button = button;
 	}
 	
 }

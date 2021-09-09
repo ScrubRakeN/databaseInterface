@@ -25,7 +25,7 @@ public class MySQL {
 			
 		}catch(SQLException error) {
 			
-			JOptionPane.showMessageDialog(null, "Connection Failed!" + error.toString(), "Connection", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Connection Failed!\n" + error.toString(), "Connection", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		
